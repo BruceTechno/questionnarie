@@ -31,6 +31,30 @@ public class TopicServiceImpl implements TopicService {
                 || !StringUtils.hasText(endY) || !StringUtils.hasText(endM) || !StringUtils.hasText(endD)) {
             return new AddTopicResponse(RtnCode.CANNOT_EMPTY.getMessage());
         }
+        String startTimeStr = startY + startM + startD;
+        String endTimeStr = endY + endM + endD;
+        int startTimeInt = Integer.parseInt(startTimeStr);
+        int endTimeInt = Integer.parseInt(endTimeStr);
+        if (startTimeInt > endTimeInt) {
+            return new AddTopicResponse(RtnCode.TIME_ERROR.getMessage());
+        }
+        Topic check = topicDao.findByNameAndStartTimeAndEndTimeAndDescription(name, startTimeInt, endTimeInt, description);
+        if (check != null) {
+            return new AddTopicResponse(RtnCode.DATA_DUPLICATE.getMessage());
+        }
+
+        Topic result = new Topic(name, startTimeInt, endTimeInt, description);
+        topicDao.save(result);
+
+        return new AddTopicResponse(RtnCode.SUCCESSFUL.getMessage(), result);
+    }
+}
+/*    字串時間 寫法
+    if (!StringUtils.hasText(name) || !StringUtils.hasText(description)
+                || !StringUtils.hasText(startY) || !StringUtils.hasText(startM) || !StringUtils.hasText(startD)
+                || !StringUtils.hasText(endY) || !StringUtils.hasText(endM) || !StringUtils.hasText(endD)) {
+            return new AddTopicResponse(RtnCode.CANNOT_EMPTY.getMessage());
+        }
 
         String startTimeStr = startY + startM + startD;
         String endTimeStr = endY + endM + endD;
@@ -52,5 +76,4 @@ public class TopicServiceImpl implements TopicService {
         topicDao.save(result);
 
         return new AddTopicResponse(RtnCode.SUCCESSFUL.getMessage(), result);
-    }
-}
+* */

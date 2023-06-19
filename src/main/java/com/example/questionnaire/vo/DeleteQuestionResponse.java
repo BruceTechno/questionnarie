@@ -1,16 +1,16 @@
 package com.example.questionnaire.vo;
 
-public class AddQuestionResponse {
-    private String message;
+public class DeleteQuestionResponse {
+    private String message ;
 //==
 
-    public AddQuestionResponse() {
+    public DeleteQuestionResponse() {
     }
 
-    public AddQuestionResponse(String message) {
+    public DeleteQuestionResponse(String message) {
         this.message = message;
     }
-    //==
+//==
 
     public String getMessage() {
         return message;

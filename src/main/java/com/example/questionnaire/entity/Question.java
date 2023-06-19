@@ -16,20 +16,27 @@ public class Question {
     private int topicNumber;
     @Column(name = "question")
     private String question;
-    @Column(name = "option")
-    private String option;
+    @Column(name = "options")
+    private String options;
     @Column(name = "type")
     private int type;
     @Column(name = "must")
     private boolean isMust;
-    @Column(name = "answer")
-    private String answer;
+
 //==
 
 
     public Question() {
     }
-//==
+
+    public Question(int topicNumber, String question, String options, int type, boolean isMust) {
+        this.topicNumber = topicNumber;
+        this.question = question;
+        this.options = options;
+        this.type = type;
+        this.isMust = isMust;
+    }
+    //==
 
     public int getTopicNumber() {
         return topicNumber;
@@ -47,12 +54,12 @@ public class Question {
         this.question = question;
     }
 
-    public String getOption() {
-        return option;
+    public String getOptions() {
+        return options;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setOptions(String options) {
+        this.options = options;
     }
 
     public int getType() {
@@ -71,11 +78,5 @@ public class Question {
         isMust = must;
     }
 
-    public String getAnswer() {
-        return answer;
-    }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
 }

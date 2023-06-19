@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TopicDao extends JpaRepository<Topic,Integer> {
-    public Topic findByNameAndStartTimeAndEndTimeAndDescription (String name ,String startTime,String endTime,String description);
+    public Topic findByNameAndStartTimeAndEndTimeAndDescription (String name,int startTime,int endTime,String description);
 
 }

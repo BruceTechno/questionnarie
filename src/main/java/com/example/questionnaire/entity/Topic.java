@@ -14,9 +14,9 @@ public class Topic {
     @Column(name = "name")
     private String name;
     @Column(name = "start_time")
-    private String startTime;
+    private int startTime;
     @Column(name = "end_time")
-    private String endTime;
+    private int endTime;
     @Column(name = "description")
     private String description;
 //==
@@ -24,14 +24,15 @@ public class Topic {
     public Topic() {
     }
 
-    public Topic(String name, String startTime, String endTime, String description) {
+    public Topic(String name, int startTime, int endTime, String description) {
+        this.number = number;
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.description = description;
     }
-    //==
 
+    //==
 
     public int getNumber() {
         return number;
@@ -49,19 +50,19 @@ public class Topic {
         this.name = name;
     }
 
-    public String getStartTime() {
+    public int getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public int getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
 
@@ -73,3 +74,6 @@ public class Topic {
         this.description = description;
     }
 }
+
+
+
