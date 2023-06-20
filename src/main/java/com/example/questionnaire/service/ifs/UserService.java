@@ -1,14 +1,13 @@
 package com.example.questionnaire.service.ifs;
 
-import com.example.questionnaire.vo.GetUserInfoRequest;
-import com.example.questionnaire.vo.GetUserInfoResponse;
-import com.example.questionnaire.vo.GetUsersAnswerRequest;
-import com.example.questionnaire.vo.GetUsersAnswerResponse;
+import com.example.questionnaire.vo.*;
 
 public interface UserService {
     // For 問卷回饋
     public GetUsersAnswerResponse getUsersWhoAnswerThisTopic(GetUsersAnswerRequest request);
     // For 問卷回饋之內頁
     public GetUserInfoResponse getUserInfo (GetUserInfoRequest request);
+    // For 使用者作答
+    public AddUserInfoResponse addUserInfo (AddUserInfoRequest request);
 
 }

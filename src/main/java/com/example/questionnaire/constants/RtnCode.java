@@ -21,6 +21,7 @@ public enum RtnCode {
     CAN_NOT_DELETE("400","Topic Can not Delete !"),
     START_TIME_ERROR("400","New start time can't earlier than the original one"),
     UPDATE_FAILED("400","Update failed"),
+    CAN_NOT_ANSWER_NOW("400","Can not answer now"),
     DELETE_OTHER_USER("400", "Can't delete other user account!!"),
     INVENTORY_NOT_ENOUGH("400","Inventory not enough !"),
     ACCOUNT_PWD_ERROR("401","Account or password error !"),

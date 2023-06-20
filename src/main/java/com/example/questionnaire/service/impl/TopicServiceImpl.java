@@ -138,6 +138,11 @@ public class TopicServiceImpl implements TopicService {
         Topic updateContent = new Topic(number,name,startTimeInt,endTimeInt,description);
         return new UpdateTopicResponse(RtnCode.SUCCESSFUL.getMessage(),updateContent);
     }
+
+    @Override
+    public GetTopicInfoResponse getAllTopic() {
+        return new GetTopicInfoResponse(RtnCode.SUCCESSFUL.getMessage(),topicDao.findAll());
+    }
 }
 /*    字串時間 寫法
     if (!StringUtils.hasText(name) || !StringUtils.hasText(description)
