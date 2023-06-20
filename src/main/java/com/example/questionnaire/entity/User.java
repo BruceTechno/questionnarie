@@ -28,11 +28,12 @@ public class User {
     @Column(name = "answer")
     private String answer;
     @Column(name = "ans_time")
-    private LocalDateTime ansTime = LocalDateTime.now();
+    private String ansTime = LocalDateTime.now().toString().substring(0,10).replace("-","");
 //==
 
     public User() {
     }
+
 //==
 
     public int getTopicNumber() {

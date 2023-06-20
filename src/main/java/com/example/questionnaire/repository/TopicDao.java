@@ -9,4 +9,7 @@ public interface TopicDao extends JpaRepository<Topic,Integer> {
     public Topic findByNameAndStartTimeAndEndTimeAndDescriptionAndNumber (String name,int startTime,int endTime,String description,int number);
     public Topic findByNameAndStartTimeAndEndTimeAndDescription (String name,int startTime,int endTime,String description);
     public Topic findByNumber(int number);
+
+    // For Method => getUsersWhoAnswerThisTopic
+    public boolean existsByNumber(int number);
 }

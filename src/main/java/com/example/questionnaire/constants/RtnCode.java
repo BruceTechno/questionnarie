@@ -11,11 +11,12 @@ public enum RtnCode {
     DATA_ERROR("400","Data is error!!!"),
     DATA_DUPLICATE("400","Data is duplicate"),
     NOT_FOUND("404","Not found!!!"),
-
+// For Questionnaire
     TIME_ERROR("400","End time earlier than Start time"),
     NOT_OPEN_YET("400","Questionnaire not open yet"),
     ALREADY_CLOSER("400","Questionnaire already close"),
     CAN_NOT_UPDATE("400","Can not update now"),
+    TOPIC_NOT_EXISTS("400","This topic not exists"),
 
 
     CAN_NOT_DELETE("400","Order Can not Delete !"),
