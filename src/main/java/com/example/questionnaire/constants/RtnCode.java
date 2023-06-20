@@ -18,8 +18,7 @@ public enum RtnCode {
     CAN_NOT_UPDATE("400","Can not update now"),
     TOPIC_NOT_EXISTS("400","This topic not exists"),
 
-
-    CAN_NOT_DELETE("400","Order Can not Delete !"),
+    CAN_NOT_DELETE("400","Topic Can not Delete !"),
     DELETE_OTHER_USER("400", "Can't delete other user account!!"),
     INVENTORY_NOT_ENOUGH("400","Inventory not enough !"),
     ACCOUNT_PWD_ERROR("401","Account or password error !"),

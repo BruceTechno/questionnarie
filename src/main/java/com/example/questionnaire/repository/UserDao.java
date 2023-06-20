@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -21,5 +22,5 @@ public interface UserDao extends JpaRepository<User,Integer> {
             " where u.topicNumber = :topicNumber")
     public List<GetDistinctUserResponse> getUsersWhoAnswerThisTopic (@Param("topicNumber")int topicNumber);
 
-
+    public List<User> findByNameAndAnsTime(String name , LocalDateTime ansTime);
 }
