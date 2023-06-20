@@ -11,7 +11,8 @@ class QuestionnaireApplicationTests {
 
 	@Test
 	void contextLoads() {
-
+		System.out.println(LocalDateTime.now());
+		System.out.println("=====================");
 //		String time = LocalDateTime.now().toString();
 //		System.out.println(time);
 //		System.out.println(time.substring(0,10));

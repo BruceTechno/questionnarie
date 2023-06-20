@@ -110,7 +110,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         int result = questionDao.updateQuestionByNumber(question,options,type,must,number);
         if (result == 0){
-            return new UpdateQuestionResponse(RtnCode.DATA_ERROR.getMessage());
+            return new UpdateQuestionResponse(RtnCode.UPDATE_FAILED.getMessage());
         }
         Question updateContent = new Question(question,options,type,must);
         return new UpdateQuestionResponse(RtnCode.SUCCESSFUL.getMessage(),updateContent);

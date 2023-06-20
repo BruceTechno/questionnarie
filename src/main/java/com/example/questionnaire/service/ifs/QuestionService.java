@@ -7,4 +7,5 @@ public interface QuestionService {
     public DeleteQuestionResponse deleteQuestion (DeleteQuestionRequest request);
     public UpdateQuestionResponse updateQuestion (UpdateQuestionRequest request);
     public GetQuestionResponse getQuestionInfo(GetQuestionRequest request);
+
 }
