@@ -1,15 +1,10 @@
 package com.example.questionnaire.controller;
 
 import com.example.questionnaire.service.ifs.QuestionService;
-import com.example.questionnaire.vo.AddQuestionRequest;
-import com.example.questionnaire.vo.AddQuestionResponse;
-import com.example.questionnaire.vo.DeleteQuestionRequest;
-import com.example.questionnaire.vo.DeleteQuestionResponse;
+import com.example.questionnaire.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -24,5 +19,14 @@ public class QuestionController {
     @PostMapping(value = "delete_question")
     public DeleteQuestionResponse deleteQuestion(@RequestBody DeleteQuestionRequest request) {
         return questionService.deleteQuestion(request);
+    }
+    @PostMapping(value = "update_question")
+//    @RequestMapping(value = "/update_question", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UpdateQuestionResponse updateQuestion(@RequestBody UpdateQuestionRequest request) {
+        return questionService.updateQuestion(request);
+    }
+    @PostMapping(value = "get_question_info")
+    public GetQuestionResponse getQuestionInfo(@RequestBody GetQuestionRequest request) {
+        return questionService.getQuestionInfo(request);
     }
 }

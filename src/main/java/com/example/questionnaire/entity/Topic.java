@@ -9,6 +9,8 @@ import javax.persistence.Table;
 @Table(name = "topic")
 public class Topic {
     @Id
+    @Column(name = "id")
+    private int id;
     @Column(name = "number")
     private int number;
     @Column(name = "name")
@@ -24,14 +26,15 @@ public class Topic {
     public Topic() {
     }
 
-    public Topic(String name, int startTime, int endTime, String description) {
+
+
+    public Topic(int number, String name, int startTime, int endTime, String description) {
         this.number = number;
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.description = description;
     }
-
     //==
 
     public int getNumber() {

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Random;
+
 @Service
 public class TopicServiceImpl implements TopicService {
     @Autowired
@@ -17,6 +19,10 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public AddTopicResponse addTopic(AddTopicRequest request) {
+        // 新增問卷時 按下下一步 製造出亂數 當作topic number
+        int number = request.getNumber();
+
+
         String name = request.getName();
         String description = request.getDescription();
         String startY = request.getStartY();
@@ -25,6 +31,7 @@ public class TopicServiceImpl implements TopicService {
         String endY = request.getEndY();
         String endM = request.getEndM();
         String endD = request.getEndD();
+
 
         if (!StringUtils.hasText(name) || !StringUtils.hasText(description)
                 || !StringUtils.hasText(startY) || !StringUtils.hasText(startM) || !StringUtils.hasText(startD)
@@ -38,12 +45,12 @@ public class TopicServiceImpl implements TopicService {
         if (startTimeInt > endTimeInt) {
             return new AddTopicResponse(RtnCode.TIME_ERROR.getMessage());
         }
-        Topic check = topicDao.findByNameAndStartTimeAndEndTimeAndDescription(name, startTimeInt, endTimeInt, description);
+        Topic check = topicDao.findByNameAndStartTimeAndEndTimeAndDescriptionAndNumber(name, startTimeInt, endTimeInt, description,number);
         if (check != null) {
             return new AddTopicResponse(RtnCode.DATA_DUPLICATE.getMessage());
         }
 
-        Topic result = new Topic(name, startTimeInt, endTimeInt, description);
+        Topic result = new Topic(number,name, startTimeInt, endTimeInt, description);
         topicDao.save(result);
 
         return new AddTopicResponse(RtnCode.SUCCESSFUL.getMessage(), result);

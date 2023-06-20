@@ -21,6 +21,10 @@ public class User {
     private String mail;
     @Column(name = "age")
     private int age;
+    @Column(name = "topic_number")
+    private int topicNumber;
+    @Column(name = "question")
+    private String question ;
     @Column(name = "answer")
     private String answer;
     @Column(name = "ans_time")
@@ -30,6 +34,22 @@ public class User {
     public User() {
     }
 //==
+
+    public int getTopicNumber() {
+        return topicNumber;
+    }
+
+    public void setTopicNumber(int topicNumber) {
+        this.topicNumber = topicNumber;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
 
     public int getId() {
         return id;

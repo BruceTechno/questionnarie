@@ -1,6 +1,7 @@
 package com.example.questionnaire.vo;
 
 public class AddTopicRequest {
+    private int number;
     private String name;
     private String startY;
     private String startM;
@@ -15,6 +16,14 @@ public class AddTopicRequest {
     }
 //==
 
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     public String getName() {
         return name;

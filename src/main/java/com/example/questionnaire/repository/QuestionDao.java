@@ -27,4 +27,17 @@ public interface QuestionDao extends JpaRepository<Question,Integer> {
     @Transactional
     public void deleteByTopicNumberAndQuestion (int TopicNumber ,String question);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update Question q set q.question = :question, q.options = :options, q.type = :type, q.must = :must" +
+            " where q.topicNumber = :topicNumber and q.question = :question")
+    public int updateQuestionByNumber(
+            @Param("question")String question,
+            @Param("options")String options,
+            @Param("type")int type,
+            @Param("must")boolean must,
+            @Param("topicNumber")int topicNumber);
+
+    public Question findByTopicNumberAndQuestion (int number , String question);
+
 }

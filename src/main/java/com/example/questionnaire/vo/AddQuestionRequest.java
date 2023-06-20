@@ -1,54 +1,21 @@
 package com.example.questionnaire.vo;
 
 public class AddQuestionRequest {
-    private String name;
-    private int startTime;
-    private int endTime;
-    private String description;
-//       以上為 topic
 
+    private int number;
     private String question;
     private String options;
     private  int type;
-    private boolean isMust;
+    private boolean must;
+    // 存在時間會存在session裡面再拿出來
+
+    private int endTime;
 //==
 
 
     public AddQuestionRequest() {
     }
 //==
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(int startTime) {
-        this.startTime = startTime;
-    }
-
-    public int getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(int endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getQuestion() {
         return question;
@@ -75,10 +42,27 @@ public class AddQuestionRequest {
     }
 
     public boolean isMust() {
-        return isMust;
+        return must;
     }
 
     public void setMust(boolean must) {
-        isMust = must;
+        this.must = must;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
     }
 }

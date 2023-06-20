@@ -15,6 +15,7 @@ public enum RtnCode {
     TIME_ERROR("400","End time earlier than Start time"),
     NOT_OPEN_YET("400","Questionnaire not open yet"),
     ALREADY_CLOSER("400","Questionnaire already close"),
+    CAN_NOT_UPDATE("400","Can not update now"),
 
 
     CAN_NOT_DELETE("400","Order Can not Delete !"),

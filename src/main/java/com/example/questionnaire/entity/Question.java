@@ -21,7 +21,8 @@ public class Question {
     @Column(name = "type")
     private int type;
     @Column(name = "must")
-    private boolean isMust;
+    private boolean must;
+
 
 //==
 
@@ -29,14 +30,39 @@ public class Question {
     public Question() {
     }
 
-    public Question(int topicNumber, String question, String options, int type, boolean isMust) {
+    public Question(String question, String options, int type, boolean must) {
+        this.question = question;
+        this.options = options;
+        this.type = type;
+        this.must = must;
+    }
+
+    public Question(int topicNumber, String question, String options, int type, boolean must) {
         this.topicNumber = topicNumber;
         this.question = question;
         this.options = options;
         this.type = type;
-        this.isMust = isMust;
+        this.must = must;
     }
+
+    public Question(int id, int topicNumber, String question, String options, int type, boolean must) {
+        this.id = id;
+        this.topicNumber = topicNumber;
+        this.question = question;
+        this.options = options;
+        this.type = type;
+        this.must = must;
+    }
+
     //==
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getTopicNumber() {
         return topicNumber;
@@ -71,12 +97,10 @@ public class Question {
     }
 
     public boolean isMust() {
-        return isMust;
+        return must;
     }
 
     public void setMust(boolean must) {
-        isMust = must;
+        this.must = must;
     }
-
-
 }
