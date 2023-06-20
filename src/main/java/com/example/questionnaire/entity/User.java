@@ -100,11 +100,11 @@ public class User {
         this.answer = answer;
     }
 
-    public LocalDateTime getAnsTime() {
+    public String getAnsTime() {
         return ansTime;
     }
 
-    public void setAnsTime(LocalDateTime ansTime) {
+    public void setAnsTime(String ansTime) {
         this.ansTime = ansTime;
     }
 }
