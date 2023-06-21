@@ -1,10 +1,7 @@
 package com.example.questionnaire.controller;
 
 import com.example.questionnaire.service.ifs.UserService;
-import com.example.questionnaire.vo.GetUserInfoRequest;
-import com.example.questionnaire.vo.GetUserInfoResponse;
-import com.example.questionnaire.vo.GetUsersAnswerRequest;
-import com.example.questionnaire.vo.GetUsersAnswerResponse;
+import com.example.questionnaire.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,5 +21,9 @@ public class UserController {
     @PostMapping(value = "get_user_info")
     public GetUserInfoResponse getUserInfo(@RequestBody GetUserInfoRequest request) {
         return userService.getUserInfo(request);
+    }
+    @PostMapping(value = "add_user_info")
+    public AddUserInfoResponse addUserInfo(@RequestBody AddUserInfoRequest request) {
+        return userService.addUserInfo(request);
     }
 }

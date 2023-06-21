@@ -23,4 +23,23 @@ public interface UserDao extends JpaRepository<User,Integer> {
     public List<GetDistinctUserResponse> getUsersWhoAnswerThisTopic (@Param("topicNumber")int topicNumber);
 
     public List<User> findByNameAndAnsTime(String name , LocalDateTime ansTime);
+    public boolean existsByMailAndQuestion(String mail , String question);
+
+//    @Transactional
+//    @Modifying
+//    @Query(value = "insert into user(name,phone,mail,age,topic_number,question,answer,ans_time)" +
+//            " select :name, :phone, :mail, :age, :topicNumber, :question, :answer, :ansTime" +
+//            " where not exists (select 1 from question where topic_number = :topicNumber)"
+//            ,nativeQuery = true)
+//    public int addUserInfoWhereNotExists(
+//            @Param("name")String name,
+//            @Param("phone")String phone,
+//            @Param("mail")String mail,
+//            @Param("age")int age,
+//            @Param("topicNumber")int topicNumber,
+//            @Param("question")String question,
+//            @Param("answer")String answer,
+//            @Param("ansTime")LocalDateTime ansTime,
+//            @Param("topic");
+
 }
