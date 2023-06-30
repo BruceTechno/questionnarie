@@ -7,7 +7,14 @@ import java.util.List;
 public class GetTopicInfoResponse {
     private String message;
     private List<Topic> topicList;
+    private Topic topic;
 //==
+
+
+    public GetTopicInfoResponse(String message, Topic topic) {
+        this.message = message;
+        this.topic = topic;
+    }
 
     public GetTopicInfoResponse() {
     }
@@ -21,6 +28,14 @@ public class GetTopicInfoResponse {
         this.topicList = topicList;
     }
 //==
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
 
     public String getMessage() {
         return message;

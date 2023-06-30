@@ -29,6 +29,7 @@ public class User {
     private String answer;
     @Column(name = "ans_time")
     private LocalDateTime ansTime = LocalDateTime.now();
+
 //    private String ansTime = LocalDateTime.now().toString().substring(0,10).replace("-","");
 //==
 
@@ -36,6 +37,8 @@ public class User {
     }
 
 //==
+
+
 
     public int getTopicNumber() {
         return topicNumber;

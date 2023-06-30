@@ -9,9 +9,11 @@ import com.example.questionnaire.service.ifs.QuestionService;
 import com.example.questionnaire.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,35 +23,27 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private TopicDao topicDao;
 
-    @Override
+    @Override //改多筆新增
     public AddQuestionResponse addQuestion(AddQuestionRequest request) {
-        int number = request.getNumber();
-        String question = request.getQuestion();
-        String options = request.getOptions();
-        int type = request.getType();
-        boolean must = request.isMust();
-        int endTime = request.getEndTime();
-        if (number < 0 || type < 0 || type > 2 ){
-            return new AddQuestionResponse(RtnCode.DATA_ERROR.getMessage());
-        }
-        if (!StringUtils.hasText(question) || !StringUtils.hasText(options)){
-            return new AddQuestionResponse(RtnCode.CANNOT_EMPTY.getMessage());
-        }
-
-        // 時間判斷 => 關閉了就不能新增
+        //抓使用者現在時間
         String localDateTimeStr = LocalDateTime.now().toString().substring(0,10).replace("-","");
         int localDateTime = Integer.parseInt(localDateTimeStr);
+        // Request
+        int number = request.getNumber();
+        List<Question> questionList = request.getQuestionList();
+        if (CollectionUtils.isEmpty(questionList)){
+            return new AddQuestionResponse(RtnCode.CANNOT_EMPTY.getMessage());
+        }
+        for (Question item : questionList){
+            if (item.getTopicNumber() < 0 || !StringUtils.hasText(item.getQuestion()) ||
+                    !StringUtils.hasText(item.getOptions()) || item.getType() < 0 ){
+                return new AddQuestionResponse(RtnCode.DATA_ERROR.getMessage());
+            }
+        }
+        questionDao.saveAll(questionList);
 
-        // 關閉了就不用再新增了  只有 開放中 => 問題不夠可以新增 開放前 => 可以新增
-        if (localDateTime > endTime){
-            return new AddQuestionResponse(RtnCode.ALREADY_CLOSER.getMessage());
-        }
-        // 問卷編號 問題 選項 若一樣則不給新增
-        int result = questionDao.addQueryWhereNotExists(number, question, options, type, must);
-        if (result == 0){
-            return new AddQuestionResponse(RtnCode.DATA_DUPLICATE.getMessage());
-        }
         return new AddQuestionResponse(RtnCode.SUCCESSFUL.getMessage());
+
     }
 
     @Override
@@ -135,3 +129,33 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
 }
+/*
+*
+//原本 add question 的寫法
+//        int number = request.getNumber();
+//        String question = request.getQuestion();
+//        String options = request.getOptions();
+//        int type = request.getType();
+//        boolean must = request.isMust();
+//        int endTime = request.getEndTime();
+//        if (number < 0 || type < 0 || type > 2 ){
+//            return new AddQuestionResponse(RtnCode.DATA_ERROR.getMessage());
+//        }
+//        if (!StringUtils.hasText(question) || !StringUtils.hasText(options)){
+//            return new AddQuestionResponse(RtnCode.CANNOT_EMPTY.getMessage());
+//        }
+//
+//        // 時間判斷 => 關閉了就不能新增
+//        String localDateTimeStr = LocalDateTime.now().toString().substring(0,10).replace("-","");
+//        int localDateTime = Integer.parseInt(localDateTimeStr);
+//
+//        // 關閉了就不用再新增了  只有 開放中 => 問題不夠可以新增 開放前 => 可以新增
+//        if (localDateTime > endTime){
+//            return new AddQuestionResponse(RtnCode.ALREADY_CLOSER.getMessage());
+//        }
+//        // 問卷編號 問題 選項 若一樣則不給新增
+//        int result = questionDao.addQueryWhereNotExists(number, question, options, type, must);
+//        if (result == 0){
+//            return new AddQuestionResponse(RtnCode.DATA_DUPLICATE.getMessage());
+//        }
+* */

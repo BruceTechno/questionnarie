@@ -2,6 +2,8 @@ package com.example.questionnaire.repository;
 
 import com.example.questionnaire.entity.User;
 import com.example.questionnaire.vo.GetDistinctUserResponse;
+import com.example.questionnaire.vo.GetUserInfoResponse;
+import com.example.questionnaire.vo.UserAndQuestionJoinResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +26,23 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
     public List<User> findByNameAndAnsTime(String name , LocalDateTime ansTime);
     public boolean existsByMailAndQuestion(String mail , String question);
+
+    @Transactional
+    @Modifying
+    @Query("select new com.example.questionnaire.vo.UserAndQuestionJoinResponse(u.name,u.phone,u.mail,u.age,u.topicNumber,u.question,u.answer,u.ansTime,q.options,q.type,q.must)" +        //03.0
+            " from User u join Question q on q.topicNumber = u.topicNumber" +
+            " where u.topicNumber = :newTopicNumber")
+    public List<UserAndQuestionJoinResponse> getUserAndQuestionInfo(
+            @Param("newTopicNumber")int newTopicNumber);
+//    @Transactional
+//    @Modifying
+//    @Query("select new com.example.questionnaire.vo.UserAndQuestionJoinResponse(u.name,u.phone,u.mail,u.age,u.topicNumber,u.question,u.answer,u.ansTime,q.options,q.type,q.must)" +        //03.0
+//            " from User u join Question q on q.topicNumber = u.topicNumber" +
+//            " where u.topicNumber = :newTopicNumber and u.name = :name and u.ansTime = :ansTime")
+//    public List<UserAndQuestionJoinResponse> getUserAndQuestionInfo(
+//            @Param("newTopicNumber")int newTopicNumber,
+//            @Param("name")String name,
+//            @Param("ansTime")LocalDateTime ansTime);
 
 //    @Transactional
 //    @Modifying

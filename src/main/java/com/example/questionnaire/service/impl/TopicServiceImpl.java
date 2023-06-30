@@ -23,6 +23,8 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public AddTopicResponse addTopic(AddTopicRequest request) {
+        String localDateTimeStr = LocalDateTime.now().toString().substring(0, 10).replace("-", "");
+        int localDateTime = Integer.parseInt(localDateTimeStr);
         // 新增問卷時 按下下一步 製造出亂數 當作topic number
         int number = request.getNumber();
 
@@ -45,10 +47,14 @@ public class TopicServiceImpl implements TopicService {
         String endTimeStr = endY + endM + endD;
         int startTimeInt = Integer.parseInt(startTimeStr);
         int endTimeInt = Integer.parseInt(endTimeStr);
+        //多判斷一個現在時間 不可比開始時間晚 不可新增已經過期的問卷
         if (startTimeInt > endTimeInt) {
             return new AddTopicResponse(RtnCode.TIME_ERROR.getMessage());
         }
-        // 因為現在 number還是存在 session 所以無法 exists by number
+        if (localDateTime > startTimeInt){
+            return new AddTopicResponse(RtnCode.CAN_NOT_ADD_NOW.getMessage());
+        }
+        // 因為現在 number還是存在session 所以無法 exists by number
         Topic check = topicDao.findByNameAndStartTimeAndEndTimeAndDescriptionAndNumber(name, startTimeInt, endTimeInt, description, number);
         if (check != null) {
             return new AddTopicResponse(RtnCode.DATA_DUPLICATE.getMessage());
@@ -142,6 +148,25 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public GetTopicInfoResponse getAllTopic() {
         return new GetTopicInfoResponse(RtnCode.SUCCESSFUL.getMessage(),topicDao.findAll());
+    }
+
+    @Override
+    public SearchTopicResponse searchTopic(SearchTopicRequest request) {
+        return null;
+    }
+
+    @Override
+    public GetTopicInfoResponse getTopicByTopicNumber(GetTopicInfoRequest request) {
+        int number = request.getNumber();
+        if (number < 0 ){
+            return new GetTopicInfoResponse(RtnCode.DATA_ERROR.getMessage());
+        }
+        Topic result = topicDao.findByNumber(number);
+        if (result == null ){
+            return new GetTopicInfoResponse(RtnCode.NOT_FOUND.getMessage());
+        }
+
+        return new GetTopicInfoResponse(RtnCode.SUCCESSFUL.getMessage(),result);
     }
 }
 /*    字串時間 寫法

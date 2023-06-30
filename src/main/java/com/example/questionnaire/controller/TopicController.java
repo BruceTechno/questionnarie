@@ -27,4 +27,9 @@ public class TopicController {
     public GetTopicInfoResponse getAllTopic() {
         return topicService.getAllTopic();
     }
-}
+    @PostMapping(value = "get_topic_by_number")
+    public GetTopicInfoResponse getTopicByTopicNumber(@RequestBody GetTopicInfoRequest request) {
+        return topicService.getTopicByTopicNumber(request);
+    }
+
+    }

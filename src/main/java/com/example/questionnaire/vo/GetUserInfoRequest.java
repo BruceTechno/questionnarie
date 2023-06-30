@@ -5,11 +5,20 @@ import java.time.LocalDateTime;
 public class GetUserInfoRequest {
     private String name;
     private LocalDateTime ansTime;
+    private int topicNumber;
 //==
 
     public GetUserInfoRequest() {
     }
 //==
+
+    public int getTopicNumber() {
+        return topicNumber;
+    }
+
+    public void setTopicNumber(int topicNumber) {
+        this.topicNumber = topicNumber;
+    }
 
     public String getName() {
         return name;

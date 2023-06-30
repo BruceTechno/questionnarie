@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface QuestionDao extends JpaRepository<Question,Integer> {
@@ -41,4 +42,6 @@ public interface QuestionDao extends JpaRepository<Question,Integer> {
     public Question findByTopicNumberAndQuestion (int number , String question);
     @Transactional
     public void deleteByTopicNumber(int TopicNumber);
+
+    public List<Question> findAllByTopicNumber(int topicNumber);
 }

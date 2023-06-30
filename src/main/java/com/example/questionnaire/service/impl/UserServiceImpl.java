@@ -1,8 +1,10 @@
 package com.example.questionnaire.service.impl;
 
 import com.example.questionnaire.constants.RtnCode;
+import com.example.questionnaire.entity.Question;
 import com.example.questionnaire.entity.Topic;
 import com.example.questionnaire.entity.User;
+import com.example.questionnaire.repository.QuestionDao;
 import com.example.questionnaire.repository.TopicDao;
 import com.example.questionnaire.repository.UserDao;
 import com.example.questionnaire.service.ifs.UserService;
@@ -13,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +24,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private TopicDao topicDao;
+    @Autowired
+    private QuestionDao questionDao;
 
     @Override
     public GetUsersAnswerResponse getUsersWhoAnswerThisTopic(GetUsersAnswerRequest request) {
@@ -40,7 +45,7 @@ public class UserServiceImpl implements UserService {
         return new GetUsersAnswerResponse(RtnCode.SUCCESSFUL.getMessage(), result);
     }
 
-    @Override
+    @Override  //問題表的資訊也要抓出來
     public GetUserInfoResponse getUserInfo(GetUserInfoRequest request) {
         String name = request.getName();
         LocalDateTime ansTime = request.getAnsTime();
@@ -48,12 +53,16 @@ public class UserServiceImpl implements UserService {
         if (!StringUtils.hasText(name)) {
             return new GetUserInfoResponse(RtnCode.CANNOT_EMPTY.getMessage());
         }
-        List<User> result = userDao.findByNameAndAnsTime(name, ansTime); //  問卷回饋之內頁 差一個option
-        if (CollectionUtils.isEmpty(result)) {
+        List<User> userResult = userDao.findByNameAndAnsTime(name, ansTime); //  問卷回饋之內頁 差一個option
+        if (CollectionUtils.isEmpty(userResult)) {
             return new GetUserInfoResponse(RtnCode.NOT_FOUND.getMessage()); // 根本沒這個人
         }
+        List<Question> questionResult = questionDao.findAllByTopicNumber(userResult.get(0).getTopicNumber());
+        if (CollectionUtils.isEmpty(questionResult)){
+            return new GetUserInfoResponse(RtnCode.NOT_FOUND.getMessage());
+        }
 
-        return new GetUserInfoResponse(RtnCode.SUCCESSFUL.getMessage(), result);
+        return new GetUserInfoResponse(RtnCode.SUCCESSFUL.getMessage(), userResult,questionResult);
     }
 
     //todo 0620 剩下addUserInfo DONE & 模糊搜尋(LEFT) & (updateUserInfo 這個寫在前端 直接對存在Session 裡面的資料作修改)
