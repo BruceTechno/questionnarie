@@ -10,4 +10,5 @@ public interface TopicService {
     public GetTopicInfoResponse getAllTopic ();
     public SearchTopicResponse searchTopic (SearchTopicRequest request);
     public GetTopicInfoResponse getTopicByTopicNumber(GetTopicInfoRequest request);
+    public DistinctSearchResponse distinctSearchTopic(DistinctSearchRequest request);
 }

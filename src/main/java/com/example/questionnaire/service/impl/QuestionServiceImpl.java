@@ -113,14 +113,14 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public GetQuestionResponse getQuestionInfo(GetQuestionRequest request) {
         int number = request.getNumber();
-        String question = request.getQuestion();
+//        String question = request.getQuestion();
         if (number < 0 ) {
             return new GetQuestionResponse(RtnCode.DATA_ERROR.getMessage());
         }
-        if (!StringUtils.hasText(question)){
-            return  new GetQuestionResponse(RtnCode.CANNOT_EMPTY.getMessage());
-        }
-        Question result = questionDao.findByTopicNumberAndQuestion(number, question);
+//        if (!StringUtils.hasText(question)){
+//            return  new GetQuestionResponse(RtnCode.CANNOT_EMPTY.getMessage());
+//        }
+        List<Question> result = questionDao.findByTopicNumber(number);
         if (result == null){
             return new GetQuestionResponse(RtnCode.NOT_FOUND.getMessage());
         }

@@ -40,6 +40,7 @@ public interface QuestionDao extends JpaRepository<Question,Integer> {
             @Param("topicNumber")int topicNumber);
 
     public Question findByTopicNumberAndQuestion (int number , String question);
+    public List<Question> findByTopicNumber(int number);
     @Transactional
     public void deleteByTopicNumber(int TopicNumber);
 

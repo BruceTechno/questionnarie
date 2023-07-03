@@ -168,6 +168,13 @@ public class TopicServiceImpl implements TopicService {
 
         return new GetTopicInfoResponse(RtnCode.SUCCESSFUL.getMessage(),result);
     }
+
+    @Override
+    public DistinctSearchResponse distinctSearchTopic(DistinctSearchRequest request) {
+
+
+        return null;
+    }
 }
 /*    字串時間 寫法
     if (!StringUtils.hasText(name) || !StringUtils.hasText(description)

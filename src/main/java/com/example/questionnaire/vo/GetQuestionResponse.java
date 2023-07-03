@@ -2,9 +2,11 @@ package com.example.questionnaire.vo;
 
 import com.example.questionnaire.entity.Question;
 
+import java.util.List;
+
 public class GetQuestionResponse {
     private String message;
-    private Question question;
+    private List<Question> questionList;
 //==
 
     public GetQuestionResponse() {
@@ -14,11 +16,12 @@ public class GetQuestionResponse {
         this.message = message;
     }
 
-    public GetQuestionResponse(String message, Question question) {
+    public GetQuestionResponse(String message, List<Question> questionList) {
         this.message = message;
-        this.question = question;
+        this.questionList = questionList;
     }
-//==
+
+    //==
 
     public String getMessage() {
         return message;
@@ -28,11 +31,13 @@ public class GetQuestionResponse {
         this.message = message;
     }
 
-    public Question getQuestion() {
-        return question;
+    public List<Question> getQuestionList() {
+        return questionList;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
     }
+
+
 }
