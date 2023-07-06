@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +49,11 @@ public class UserServiceImpl implements UserService {
     @Override  //問題表的資訊也要抓出來
     public GetUserInfoResponse getUserInfo(GetUserInfoRequest request) {
         String name = request.getName();
-        LocalDateTime ansTime = request.getAnsTime();
-
+        LocalDate ansTime = request.getAnsTime();
+        int number = request.getTopicNumber();
+        if (number < 0 ){
+            return new GetUserInfoResponse(RtnCode.DATA_ERROR.getMessage());
+        }
         if (!StringUtils.hasText(name)) {
             return new GetUserInfoResponse(RtnCode.CANNOT_EMPTY.getMessage());
         }
@@ -57,7 +61,7 @@ public class UserServiceImpl implements UserService {
         if (CollectionUtils.isEmpty(userResult)) {
             return new GetUserInfoResponse(RtnCode.NOT_FOUND.getMessage()); // 根本沒這個人
         }
-        List<Question> questionResult = questionDao.findAllByTopicNumber(userResult.get(0).getTopicNumber());
+        List<Question> questionResult = questionDao.findAllByTopicNumber(number);
         if (CollectionUtils.isEmpty(questionResult)){
             return new GetUserInfoResponse(RtnCode.NOT_FOUND.getMessage());
         }
@@ -92,7 +96,7 @@ public class UserServiceImpl implements UserService {
                  || !StringUtils.hasText(item.getQuestion()) || !StringUtils.hasText(item.getAnswer())){
                  return new AddUserInfoResponse(RtnCode.CANNOT_EMPTY.getMessage());
                  }
-            item.setAnsTime(LocalDateTime.now());
+            item.setAnsTime(LocalDate.now());
             item.setTopicNumber(number);
             if (userDao.existsByMailAndQuestion(item.getMail(), item.getQuestion())){
                 return new AddUserInfoResponse(RtnCode.DATA_DUPLICATE.getMessage());// 填寫資料重複
@@ -101,6 +105,23 @@ public class UserServiceImpl implements UserService {
         }
         userDao.saveAll(userList);
         return new AddUserInfoResponse(RtnCode.SUCCESSFUL.getMessage(),userList);
+    }
+
+    @Override
+    public StatisticsResponse getStatistics(StatisticsRequest request) {
+        int number = request.getNumber();
+        String answer = request.getAnswer();
+        String question = request.getQuestion();
+        if (number < 0 ){
+            return new StatisticsResponse(RtnCode.DATA_ERROR.getMessage());
+        }
+        if (!StringUtils.hasText(answer) || !StringUtils.hasText(question)){
+            return new StatisticsResponse(RtnCode.DATA_ERROR.getMessage());
+        }
+        int result = userDao.getStatisticsByTopicNumberAndAnswer(number, answer,question);
+
+
+        return new StatisticsResponse(result,RtnCode.SUCCESSFUL.getMessage());
     }
 }
 //    String name = request.getName();

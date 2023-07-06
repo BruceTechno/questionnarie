@@ -32,4 +32,9 @@ public class TopicController {
         return topicService.getTopicByTopicNumber(request);
     }
 
+    @PostMapping(value = "distinct_search_topic")
+    public DistinctSearchTopicResponse distinctSearchTopic(@RequestBody DistinctSearchTopicRequest request) {
+        return topicService.distinctSearchTopic(request);
+    }
+
     }

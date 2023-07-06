@@ -2,6 +2,7 @@ package com.example.questionnaire.entity;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +27,7 @@ public class User {
     @Column(name = "answer")
     private String answer;
     @Column(name = "ans_time")
-    private LocalDateTime ansTime = LocalDateTime.now();
+    private LocalDate ansTime = LocalDate.now();
 
 //    private String ansTime = LocalDateTime.now().toString().substring(0,10).replace("-","");
 //==
@@ -102,11 +103,11 @@ public class User {
         this.answer = answer;
     }
 
-    public LocalDateTime getAnsTime() {
+    public LocalDate getAnsTime() {
         return ansTime;
     }
 
-    public void setAnsTime(LocalDateTime ansTime) {
+    public void setAnsTime(LocalDate ansTime) {
         this.ansTime = ansTime;
     }
 }

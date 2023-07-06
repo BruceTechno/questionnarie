@@ -3,6 +3,7 @@ package com.example.questionnaire.repository;
 import com.example.questionnaire.entity.User;
 import com.example.questionnaire.vo.GetDistinctUserResponse;
 import com.example.questionnaire.vo.GetUserInfoResponse;
+import com.example.questionnaire.vo.StatisticsResult;
 import com.example.questionnaire.vo.UserAndQuestionJoinResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,20 +12,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface UserDao extends JpaRepository<User,Integer> {
 
-    @Transactional
-    @Modifying
+
     @Query("select distinct new com.example.questionnaire.vo.GetDistinctUserResponse(u.name,u.ansTime)" +                                     //
             " from User u" +
             " where u.topicNumber = :topicNumber")
     public List<GetDistinctUserResponse> getUsersWhoAnswerThisTopic (@Param("topicNumber")int topicNumber);
 
-    public List<User> findByNameAndAnsTime(String name , LocalDateTime ansTime);
+    public List<User> findByNameAndAnsTime(String name , LocalDate ansTime);
     public boolean existsByMailAndQuestion(String mail , String question);
 
     @Transactional
@@ -34,6 +34,16 @@ public interface UserDao extends JpaRepository<User,Integer> {
             " where u.topicNumber = :newTopicNumber")
     public List<UserAndQuestionJoinResponse> getUserAndQuestionInfo(
             @Param("newTopicNumber")int newTopicNumber);
+
+
+
+    @Query("select count(*)" +
+            " from User u where u.topicNumber = :topicNumber and u.answer like concat('%',:answer,'%') and u.question = :question")
+    public int getStatisticsByTopicNumberAndAnswer(
+            @Param("topicNumber")int newTopicNumber,
+            @Param("answer")String answer,
+            @Param("question")String question    );
+
 //    @Transactional
 //    @Modifying
 //    @Query("select new com.example.questionnaire.vo.UserAndQuestionJoinResponse(u.name,u.phone,u.mail,u.age,u.topicNumber,u.question,u.answer,u.ansTime,q.options,q.type,q.must)" +        //03.0

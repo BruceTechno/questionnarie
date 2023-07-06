@@ -34,6 +34,13 @@ public class QuestionServiceImpl implements QuestionService {
         if (CollectionUtils.isEmpty(questionList)){
             return new AddQuestionResponse(RtnCode.CANNOT_EMPTY.getMessage());
         }
+        if (number < 0 ){
+            return new AddQuestionResponse(RtnCode.DATA_ERROR.getMessage());
+        }
+        boolean checkTopic = topicDao.existsByNumber(number);
+        if (checkTopic == false){
+            return new AddQuestionResponse(RtnCode.NOT_FOUND.getMessage()); //問卷可能新增失敗 或無這份問卷
+        }
         for (Question item : questionList){
             if (item.getTopicNumber() < 0 || !StringUtils.hasText(item.getQuestion()) ||
                     !StringUtils.hasText(item.getOptions()) || item.getType() < 0 ){
@@ -80,7 +87,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public UpdateQuestionResponse updateQuestion(UpdateQuestionRequest request) {
         int number = request.getNumber();
-        String question = request.getQuestion();
+        String oldQuestion = request.getOldQuestion();
+        String newQuestion = request.getNewQuestion();
         String options = request.getOptions();
         int type = request.getType();
         boolean must = request.isMust();
@@ -88,7 +96,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (number < 0 || type < 0 || type > 2  ){
             return new UpdateQuestionResponse(RtnCode.DATA_ERROR.getMessage());
         }
-        if (!StringUtils.hasText(question) || !StringUtils.hasText(options)){
+        if (!StringUtils.hasText(oldQuestion) || !StringUtils.hasText(newQuestion) || !StringUtils.hasText(options)){
             return new UpdateQuestionResponse(RtnCode.CANNOT_EMPTY.getMessage());
         }
         Topic topic = topicDao.findByNumber(number);
@@ -102,11 +110,11 @@ public class QuestionServiceImpl implements QuestionService {
         if (localDateTime > topic.getStartTime() && localDateTime < topic.getEndTime()){
             return new UpdateQuestionResponse(RtnCode.CAN_NOT_UPDATE.getMessage());
         }
-        int result = questionDao.updateQuestionByNumber(question,options,type,must,number);
+        int result = questionDao.updateQuestionByNumber(newQuestion,options,type,must,number,oldQuestion);
         if (result == 0){
             return new UpdateQuestionResponse(RtnCode.UPDATE_FAILED.getMessage());
         }
-        Question updateContent = new Question(question,options,type,must);
+        Question updateContent = new Question(newQuestion,options,type,must);
         return new UpdateQuestionResponse(RtnCode.SUCCESSFUL.getMessage(),updateContent);
     }
 

@@ -30,14 +30,15 @@ public interface QuestionDao extends JpaRepository<Question,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update Question q set q.question = :question, q.options = :options, q.type = :type, q.must = :must" +
-            " where q.topicNumber = :topicNumber and q.question = :question")
+    @Query(value = "update Question q set q.question = :newQuestion, q.options = :options, q.type = :type, q.must = :must" +
+            " where q.topicNumber = :topicNumber and q.question = :oldQuestion")
     public int updateQuestionByNumber(
-            @Param("question")String question,
+            @Param("newQuestion")String question,
             @Param("options")String options,
             @Param("type")int type,
             @Param("must")boolean must,
-            @Param("topicNumber")int topicNumber);
+            @Param("topicNumber")int topicNumber,
+            @Param("oldQuestion")String oldQuestion);
 
     public Question findByTopicNumberAndQuestion (int number , String question);
     public List<Question> findByTopicNumber(int number);

@@ -9,9 +9,11 @@ import com.example.questionnaire.service.ifs.TopicService;
 import com.example.questionnaire.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -170,10 +172,16 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public DistinctSearchResponse distinctSearchTopic(DistinctSearchRequest request) {
+    public DistinctSearchTopicResponse distinctSearchTopic(DistinctSearchTopicRequest request) {
+    int startTime = request.getStartTime();
+    int endTime = request.getEndTime();
+    String topicName = request.getTopicName();
 
-
-        return null;
+        List<DistinctSearchResult> result = topicDao.distinctSearchTopic(topicName, startTime, endTime);
+        if (CollectionUtils.isEmpty(result)){
+            return new DistinctSearchTopicResponse(RtnCode.NOT_FOUND.getMessage());
+        }
+        return new DistinctSearchTopicResponse(RtnCode.SUCCESSFUL.getMessage(),result);
     }
 }
 /*    字串時間 寫法

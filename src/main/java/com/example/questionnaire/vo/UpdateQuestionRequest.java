@@ -2,10 +2,11 @@ package com.example.questionnaire.vo;
 
 public class UpdateQuestionRequest {
     private int number ;
-    private String question;
+    private String oldQuestion;
     private String options;
     private int type;
     private boolean must;
+    private String newQuestion;
 
 //==
 
@@ -47,12 +48,19 @@ public class UpdateQuestionRequest {
         this.number = number;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getOldQuestion() {
+        return oldQuestion;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setOldQuestion(String oldQuestion) {
+        this.oldQuestion = oldQuestion;
     }
 
+    public String getNewQuestion() {
+        return newQuestion;
+    }
+
+    public void setNewQuestion(String newQuestion) {
+        this.newQuestion = newQuestion;
+    }
 }

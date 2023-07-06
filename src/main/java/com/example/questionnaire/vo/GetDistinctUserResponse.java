@@ -1,20 +1,21 @@
 package com.example.questionnaire.vo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class GetDistinctUserResponse {
     private String name;
-    private LocalDateTime localDateTime;
+    private LocalDate localDate;
 //==
 
     public GetDistinctUserResponse() {
     }
 
-    public GetDistinctUserResponse(String name, LocalDateTime localDateTime) {
+    public GetDistinctUserResponse(String name, LocalDate localDate) {
         this.name = name;
-        this.localDateTime = localDateTime;
+        this.localDate = localDate;
     }
-//==
+    //==
 
     public String getName() {
         return name;
@@ -24,11 +25,11 @@ public class GetDistinctUserResponse {
         this.name = name;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 }

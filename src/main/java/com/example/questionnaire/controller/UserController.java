@@ -18,12 +18,20 @@ public class UserController {
     public GetUsersAnswerResponse getUsersWhoAnswerThisTopic(@RequestBody GetUsersAnswerRequest request) {
         return userService.getUsersWhoAnswerThisTopic(request);
     }
+
     @PostMapping(value = "get_user_info")
     public GetUserInfoResponse getUserInfo(@RequestBody GetUserInfoRequest request) {
         return userService.getUserInfo(request);
     }
+
     @PostMapping(value = "add_user_info")
     public AddUserInfoResponse addUserInfo(@RequestBody AddUserInfoRequest request) {
         return userService.addUserInfo(request);
     }
+
+    @PostMapping(value = "get_statistics")
+    public StatisticsResponse getStatistics(@RequestBody StatisticsRequest request) {
+        return userService.getStatistics(request);
+    }
+
 }

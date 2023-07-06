@@ -10,4 +10,6 @@ public interface UserService {
     // For 使用者作答
     public AddUserInfoResponse addUserInfo (AddUserInfoRequest request);
 
+    public StatisticsResponse getStatistics (StatisticsRequest request);
+
 }

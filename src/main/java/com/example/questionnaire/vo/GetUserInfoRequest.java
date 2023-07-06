@@ -1,10 +1,11 @@
 package com.example.questionnaire.vo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class GetUserInfoRequest {
     private String name;
-    private LocalDateTime ansTime;
+    private LocalDate ansTime;
     private int topicNumber;
 //==
 
@@ -28,11 +29,11 @@ public class GetUserInfoRequest {
         this.name = name;
     }
 
-    public LocalDateTime getAnsTime() {
+    public LocalDate getAnsTime() {
         return ansTime;
     }
 
-    public void setAnsTime(LocalDateTime ansTime) {
+    public void setAnsTime(LocalDate ansTime) {
         this.ansTime = ansTime;
     }
 }

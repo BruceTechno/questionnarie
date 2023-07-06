@@ -1,5 +1,6 @@
 package com.example.questionnaire.vo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class UserAndQuestionJoinResponse {
     private int topicNumber;
     private String question ;
     private String answer;
-    private LocalDateTime ansTime = LocalDateTime.now();
+    private LocalDate ansTime = LocalDate.now();
     private String options ;
 
     private int type;
@@ -20,7 +21,7 @@ public class UserAndQuestionJoinResponse {
 
 //==
 
-    public UserAndQuestionJoinResponse(String name, String phone, String mail, int age, int topicNumber, String question, String answer, LocalDateTime ansTime, String options, int type, boolean must) {
+    public UserAndQuestionJoinResponse(String name, String phone, String mail, int age, int topicNumber, String question, String answer, LocalDate ansTime, String options, int type, boolean must) {
         this.name = name;
         this.phone = phone;
         this.mail = mail;
@@ -34,6 +35,8 @@ public class UserAndQuestionJoinResponse {
         this.must = must;
     }
 
+    public UserAndQuestionJoinResponse() {
+    }
 
     //==
 
@@ -94,11 +97,11 @@ public class UserAndQuestionJoinResponse {
         this.answer = answer;
     }
 
-    public LocalDateTime getAnsTime() {
+    public LocalDate getAnsTime() {
         return ansTime;
     }
 
-    public void setAnsTime(LocalDateTime ansTime) {
+    public void setAnsTime(LocalDate ansTime) {
         this.ansTime = ansTime;
     }
 
