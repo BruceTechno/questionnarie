@@ -37,10 +37,10 @@ public class QuestionServiceImpl implements QuestionService {
         if (number < 0 ){
             return new AddQuestionResponse(RtnCode.DATA_ERROR.getMessage());
         }
-        boolean checkTopic = topicDao.existsByNumber(number);
-        if (checkTopic == false){
-            return new AddQuestionResponse(RtnCode.NOT_FOUND.getMessage()); //問卷可能新增失敗 或無這份問卷
-        }
+//        boolean checkTopic = topicDao.existsByNumber(number);
+//        if (checkTopic == false){
+//            return new AddQuestionResponse(RtnCode.NOT_FOUND.getMessage()); //問卷可能新增失敗 或無這份問卷
+//        }
         for (Question item : questionList){
             if (item.getTopicNumber() < 0 || !StringUtils.hasText(item.getQuestion()) ||
                     !StringUtils.hasText(item.getOptions()) || item.getType() < 0 ){

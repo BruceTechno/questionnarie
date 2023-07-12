@@ -17,6 +17,7 @@ public enum RtnCode {
     ALREADY_CLOSER("400","Questionnaire already close"),
     CAN_NOT_UPDATE("400","Can not update now"),
     TOPIC_NOT_EXISTS("400","This topic not exists"),
+    TOPIC_ALREADY_EXISTS("400","This topic not exists"),
 
     CAN_NOT_DELETE("400","Topic Can not Delete !"),
     START_TIME_ERROR("400","New start time can't earlier than the original one"),

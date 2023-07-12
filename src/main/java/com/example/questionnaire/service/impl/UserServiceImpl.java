@@ -119,8 +119,8 @@ public class UserServiceImpl implements UserService {
             return new StatisticsResponse(RtnCode.DATA_ERROR.getMessage());
         }
         int result = userDao.getStatisticsByTopicNumberAndAnswer(number, answer,question);
-
-
+    List<Integer> aaa = new ArrayList<>();
+    aaa.add(6);
         return new StatisticsResponse(result,RtnCode.SUCCESSFUL.getMessage());
     }
 }

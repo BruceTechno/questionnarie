@@ -56,6 +56,10 @@ public class TopicServiceImpl implements TopicService {
         if (localDateTime > startTimeInt){
             return new AddTopicResponse(RtnCode.CAN_NOT_ADD_NOW.getMessage());
         }
+        boolean checkTopic = topicDao.existsByNumber(number);
+        if (checkTopic){
+            return new AddTopicResponse(RtnCode.TOPIC_ALREADY_EXISTS.getMessage()); //問卷可能新增失敗 或無這份問卷
+        }
         // 因為現在 number還是存在session 所以無法 exists by number
         Topic check = topicDao.findByNameAndStartTimeAndEndTimeAndDescriptionAndNumber(name, startTimeInt, endTimeInt, description, number);
         if (check != null) {
