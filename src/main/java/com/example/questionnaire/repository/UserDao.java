@@ -24,7 +24,7 @@ public interface UserDao extends JpaRepository<User,Integer> {
             " where u.topicNumber = :topicNumber")
     public List<GetDistinctUserResponse> getUsersWhoAnswerThisTopic (@Param("topicNumber")int topicNumber);
 
-    public List<User> findByNameAndAnsTime(String name , LocalDate ansTime);
+    public List<User> findByNameAndAnsTimeAndTopicNumber(String name , LocalDate ansTime,int topicNumber);
     public boolean existsByMailAndQuestion(String mail , String question);
 
     @Transactional
@@ -38,7 +38,7 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
 
     @Query("select count(*)" +
-            " from User u where u.topicNumber = :topicNumber and u.answer like concat('%',:answer,'%') and u.question = :question")
+            " from User u where u.topicNumber = :topicNumber and u.answer = :answer and u.question = :question")
     public int getStatisticsByTopicNumberAndAnswer(
             @Param("topicNumber")int newTopicNumber,
             @Param("answer")String answer,

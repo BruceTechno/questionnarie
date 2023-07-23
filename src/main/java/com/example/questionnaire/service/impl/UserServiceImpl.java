@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
         if (!StringUtils.hasText(name)) {
             return new GetUserInfoResponse(RtnCode.CANNOT_EMPTY.getMessage());
         }
-        List<User> userResult = userDao.findByNameAndAnsTime(name, ansTime); //  問卷回饋之內頁 差一個option
+        List<User> userResult = userDao.findByNameAndAnsTimeAndTopicNumber(name, ansTime,number); //  問卷回饋之內頁 差一個option
         if (CollectionUtils.isEmpty(userResult)) {
             return new GetUserInfoResponse(RtnCode.NOT_FOUND.getMessage()); // 根本沒這個人
         }
@@ -96,6 +96,9 @@ public class UserServiceImpl implements UserService {
                  || !StringUtils.hasText(item.getQuestion()) || !StringUtils.hasText(item.getAnswer())){
                  return new AddUserInfoResponse(RtnCode.CANNOT_EMPTY.getMessage());
                  }
+            if(item.getAge() < 0){
+                return new AddUserInfoResponse(RtnCode.DATA_ERROR.getMessage());
+            }
             item.setAnsTime(LocalDate.now());
             item.setTopicNumber(number);
             if (userDao.existsByMailAndQuestion(item.getMail(), item.getQuestion())){
@@ -119,8 +122,7 @@ public class UserServiceImpl implements UserService {
             return new StatisticsResponse(RtnCode.DATA_ERROR.getMessage());
         }
         int result = userDao.getStatisticsByTopicNumberAndAnswer(number, answer,question);
-    List<Integer> aaa = new ArrayList<>();
-    aaa.add(6);
+
         return new StatisticsResponse(result,RtnCode.SUCCESSFUL.getMessage());
     }
 }
