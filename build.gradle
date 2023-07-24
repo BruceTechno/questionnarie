@@ -28,7 +28,7 @@ dependencies {
 	jar {
 		enabled = false
 		manifest {
-			attributes 'Main-Class': 'com.example.QuestionnaireApplication' // <-- 這裡請填入你的專案啟動 class 名稱
+			attributes 'Main-Class': 'com.example.questionnaire.QuestionnaireApplication' // <-- 這裡請填入你的專案啟動 class 名稱
 		}
 	}
 
