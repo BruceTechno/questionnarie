@@ -88,7 +88,7 @@ public class TopicServiceImpl implements TopicService {
         }
         // 使用者現在時間 > 欲刪除之問卷的開始時間 且 使用者現在時間 < 問卷之結束時間 => 表示問卷開放中
         if ((localDateTime > target.getStartTime() && localDateTime < target.getEndTime())
-                || localDateTime > target.getEndTime()) {// 使用者現在時間 > 欲刪除問卷之結束時間 => 表示 問卷已關閉
+                    ) {// 使用者現在時間 > 欲刪除問卷之結束時間 => 表示 問卷已關閉
             return new DeleteTopicResponse(RtnCode.CAN_NOT_DELETE.getMessage());
         }
         questionDao.deleteByTopicNumber(number);
@@ -180,39 +180,11 @@ public class TopicServiceImpl implements TopicService {
     int startTime = request.getStartTime();
     int endTime = request.getEndTime();
     String topicName = request.getTopicName();
-
         List<DistinctSearchResult> result = topicDao.distinctSearchTopic(topicName, startTime, endTime);
         if (CollectionUtils.isEmpty(result)){
             return new DistinctSearchTopicResponse(RtnCode.NOT_FOUND.getMessage());
         }
         return new DistinctSearchTopicResponse(RtnCode.SUCCESSFUL.getMessage(),result);
     }
+
 }
-/*    字串時間 寫法
-    if (!StringUtils.hasText(name) || !StringUtils.hasText(description)
-                || !StringUtils.hasText(startY) || !StringUtils.hasText(startM) || !StringUtils.hasText(startD)
-                || !StringUtils.hasText(endY) || !StringUtils.hasText(endM) || !StringUtils.hasText(endD)) {
-            return new AddTopicResponse(RtnCode.CANNOT_EMPTY.getMessage());
-        }
-
-        String startTimeStr = startY + startM + startD;
-        String endTimeStr = endY + endM + endD;
-        int startTimeInt = Integer.parseInt(startTimeStr);
-        int endTimeInt =Integer.parseInt(endTimeStr);
-        if (startTimeInt >endTimeInt){
-            return new AddTopicResponse(RtnCode.TIME_ERROR.getMessage());
-        }
-
-        String startTimeRes = startY + "/" + startM + "/" + startD;
-        String endTimeRes = endY + "/" + endM + "/" + endD;
-
-        Topic check = topicDao.findByNameAndStartTimeAndEndTimeAndDescription(name, startTimeRes, endTimeRes, description);
-        if (check != null) {
-            return new AddTopicResponse(RtnCode.DATA_DUPLICATE.getMessage());
-        }
-
-        Topic result = new Topic(name, startTimeRes, endTimeRes, description);
-        topicDao.save(result);
-
-        return new AddTopicResponse(RtnCode.SUCCESSFUL.getMessage(), result);
-* */

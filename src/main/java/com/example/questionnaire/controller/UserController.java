@@ -33,5 +33,8 @@ public class UserController {
     public StatisticsResponse getStatistics(@RequestBody StatisticsRequest request) {
         return userService.getStatistics(request);
     }
-
+    @PostMapping(value = "get_statistics_multiple")
+    public StatisticsResponse getStatisticsForMultiple(@RequestBody StatisticsRequest request) {
+        return userService.getStatisticsForMultiple(request);
+    }
 }

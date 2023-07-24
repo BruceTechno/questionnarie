@@ -23,6 +23,15 @@ dependencies {
 	//base64 demand
 	implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
+	//部屬網站
+	sourceCompatibility = 11
+	jar {
+		enabled = false
+		manifest {
+			attributes 'Main-Class': 'com.example.QuestionnaireApplication' // <-- 這裡請填入你的專案啟動 class 名稱
+		}
+	}
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

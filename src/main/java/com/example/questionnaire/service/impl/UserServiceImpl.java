@@ -122,8 +122,28 @@ public class UserServiceImpl implements UserService {
             return new StatisticsResponse(RtnCode.DATA_ERROR.getMessage());
         }
         int result = userDao.getStatisticsByTopicNumberAndAnswer(number, answer,question);
-
         return new StatisticsResponse(result,RtnCode.SUCCESSFUL.getMessage());
+    }
+
+    @Override
+    public StatisticsResponse getStatisticsForMultiple(StatisticsRequest request) {
+        int number = request.getNumber();
+        String answer = request.getAnswer();
+        String question = request.getQuestion();
+        if (number < 0 ){
+            return new StatisticsResponse(RtnCode.DATA_ERROR.getMessage());
+        }
+        if (!StringUtils.hasText(answer) || !StringUtils.hasText(question)){
+            return new StatisticsResponse(RtnCode.DATA_ERROR.getMessage());
+        }
+        int result = userDao.getStatisticsByTopicNumberAndAnswerForMultiple(number, answer,question);
+        return new StatisticsResponse(result,RtnCode.SUCCESSFUL.getMessage());
+    }
+
+    @Override
+    public GetStatisticsResponse getAllStatistics(GetStatisticsRequest request) {
+
+        return null;
     }
 }
 //    String name = request.getName();

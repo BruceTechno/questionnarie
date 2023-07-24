@@ -11,5 +11,7 @@ public interface UserService {
     public AddUserInfoResponse addUserInfo (AddUserInfoRequest request);
 
     public StatisticsResponse getStatistics (StatisticsRequest request);
+    public StatisticsResponse getStatisticsForMultiple (StatisticsRequest request);
+    public GetStatisticsResponse getAllStatistics (GetStatisticsRequest request);
 
 }

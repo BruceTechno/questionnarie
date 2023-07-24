@@ -42,7 +42,25 @@ public interface UserDao extends JpaRepository<User,Integer> {
     public int getStatisticsByTopicNumberAndAnswer(
             @Param("topicNumber")int newTopicNumber,
             @Param("answer")String answer,
-            @Param("question")String question    );
+            @Param("question")String question);
+    @Query("select count(*)" +
+            " from User u where u.topicNumber = :topicNumber and u.answer like concat('%',:answer,'%') and u.question = :question")
+    public int getStatisticsByTopicNumberAndAnswerForMultiple(
+            @Param("topicNumber")int newTopicNumber,
+            @Param("answer")String answer,
+            @Param("question")String question);
+
+//        @Query(value = "SELECT * FROM questionnaire where case when ?1 is not null then title like %?1%"
+//            + " else true end"
+//            + " and case when ?2 is not null then start_date >= ?2"
+//            + " else true end"
+//            + " and case when ?3 is not null then end_date <= ?3"
+//            + " else true end",
+//            nativeQuery = true)
+//    public List<Questionnaire> selectQuestionnaire(
+//            String title,
+//            LocalDate startDate,
+//            LocalDate endDate);
 
 //    @Transactional
 //    @Modifying
