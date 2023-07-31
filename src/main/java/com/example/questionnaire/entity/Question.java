@@ -1,6 +1,8 @@
 package com.example.questionnaire.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,7 @@ public class Question {
     private String options;
     @Column(name = "type")
     private int type;
+//    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     @Column(name = "must")
     private boolean must;
 

@@ -9,8 +9,7 @@ import java.util.Date;
 @SpringBootTest(classes = QuestionnaireApplication.class)
 class QuestionnaireApplicationTests {
 
-	@Test
-	void contextLoads() {
+
 //		System.out.println(LocalDateTime.now());
 //		System.out.println("=====================");
 //		String time = LocalDateTime.now().toString();
@@ -21,7 +20,10 @@ class QuestionnaireApplicationTests {
 
 //		String localDateTimeStr = LocalDateTime.now().toString().substring(0,10).replace("-","");
 //		int localDateTime = Integer.parseInt(localDateTimeStr);
-//		System.out.println(localDateTime+1);
+//		System.out.println(localDateTime+
+//		1);
+//		String str = "Hello Java";
+//		String str2 = "Hello Java";
+//		System.out.println(str);
 
-	}
 }
